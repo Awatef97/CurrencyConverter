@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.currencyconverter.features.home.presentation.viewmodel.CurrencyConversionViewModel" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:id="@+id/spinner_from_currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:entries="@{viewModel.currencyList}"
+        app:selectedItemPosition="@{viewModel.fromCurrencyPosition}"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_swap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/spinner_from_currency"
+        app:layout_constraintBottom_toBottomOf="@id/spinner_from_currency"
+        app:layout_constraintStart_toEndOf="@id/spinner_from_currency"
+        app:layout_constraintEnd_toStartOf="@id/spinner_to_currency"
+        android:layout_marginHorizontal="10dp"
+        android:onClick="@{() -> viewModel.swapCurrencies()}"
+        android:background="@drawable/ic_swap"/>
+
+    <Spinner
+        android:id="@+id/spinner_to_currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toTopOf="@id/spinner_from_currency"
+        app:layout_constraintBottom_toBottomOf="@id/spinner_from_currency"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:entries="@{viewModel.currencyList}"
+        app:selectedItemPosition="@{viewModel.toCurrencyPosition}" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@id/spinner_from_currency"
+        android:background="@android:color/transparent"
+        android:hint="Enter amount"
+        android:textColor="#000000"
+        android:inputType="none"
+        android:text="@={viewModel.amount}"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@id/et_amount"
+        android:text="@{viewModel.convertedValue}"
+        android:textColor="#000000"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
