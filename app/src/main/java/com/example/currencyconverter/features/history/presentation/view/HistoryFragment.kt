@@ -20,6 +20,7 @@ class HistoryFragment: Fragment() {
     private val binding get() = _binding!!
     private val args: HistoryFragmentArgs by navArgs()
     private val viewModel: HistoryViewModel by viewModels()
+    val historyAdapter = HistoricalDataAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +34,7 @@ class HistoryFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.recyclerViewHistory.adapter = historyAdapter
         val fromCurrency = args.fromCurrency
         val toCurrency = args.toCurrency
         viewModel.fetchHistoricalData(

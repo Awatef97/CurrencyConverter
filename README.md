@@ -14,5 +14,4 @@ The following technologies are used:
 - Kotlin coroutines for doing work on the background thread and communicating to the main thread.
 - Operators are used to give control on and manipulating the emitted flows.
 - Retrofit library to make api requests.
-- Room for caching.
 - DataBinding to bind views

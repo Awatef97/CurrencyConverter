@@ -35,7 +35,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="20dp"
             app:layoutManager="LinearLayoutManager"
-            app:adapter="@{viewModel.historyAdapter}" />
+            app:listData="@{viewModel.historicalData}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_error"

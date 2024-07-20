@@ -1,8 +1,7 @@
 package com.example.currencyconverter.features.home.data.source.remote
 
 import com.example.currencyconverter.BuildConfig
-import com.example.currencyconverter.features.home.data.mode.CurrencyConversionResponse
-import retrofit2.http.GET
+import com.example.currencyconverter.features.home.data.model.CurrencyConversionResponse
 import retrofit2.http.POST
 import retrofit2.http.Query
 

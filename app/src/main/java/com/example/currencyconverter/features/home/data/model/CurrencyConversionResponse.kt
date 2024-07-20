@@ -1,4 +1,4 @@
-package com.example.currencyconverter.features.home.data.mode
+package com.example.currencyconverter.features.home.data.model
 
 import com.example.currencyconverter.core.data.ErrorResponse
 

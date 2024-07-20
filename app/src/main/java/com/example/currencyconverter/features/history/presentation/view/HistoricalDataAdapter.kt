@@ -1,5 +1,6 @@
 package com.example.currencyconverter.features.history.presentation.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

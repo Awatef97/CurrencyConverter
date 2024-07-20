@@ -1,6 +1,7 @@
 package com.example.currencyconverter.core.utils
 
 import android.R
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -9,6 +10,9 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.RecyclerView
+import com.example.currencyconverter.features.history.presentation.uimodel.HistoricalDataByDateUIModel
+import com.example.currencyconverter.features.history.presentation.view.HistoricalDataAdapter
 
 @BindingAdapter("entries")
 fun setSpinnerEntries(spinner: Spinner, entries: MutableLiveData<List<String>>?) {
@@ -40,5 +44,12 @@ fun setErrorMsg(view: TextView, errorMsg: String?) {
     view.visibility = if (errorMsg.isNullOrEmpty()) View.GONE else {
         view.text = errorMsg
         View.VISIBLE
+    }
+}
+
+@BindingAdapter("listData")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<HistoricalDataByDateUIModel>?) {
+    if (recyclerView.adapter is HistoricalDataAdapter) {
+        data?.let { (recyclerView.adapter as HistoricalDataAdapter).setData(it) }
     }
 }

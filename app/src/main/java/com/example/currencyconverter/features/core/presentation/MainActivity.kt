@@ -1,4 +1,4 @@
-package com.example.currencyconverter.features.presentation
+package com.example.currencyconverter.features.core.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
