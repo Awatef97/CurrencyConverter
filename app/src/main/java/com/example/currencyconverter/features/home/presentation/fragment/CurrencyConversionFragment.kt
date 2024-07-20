@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.currencyconverter.R
-import com.example.currencyconverter.core.utils.InputFilterMinMax
 import com.example.currencyconverter.databinding.FragmentCurrencyConversionBinding
 import com.example.currencyconverter.features.home.presentation.viewmodel.CurrencyConversionViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,10 +32,26 @@ class CurrencyConversionFragment: Fragment() {
 
         binding.viewModel = currencyConversionViewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.spinnerFromCurrency.prompt = "From"
-        binding.spinnerToCurrency.prompt = "To"
 
-        binding.etAmount.filters = arrayOf(InputFilterMinMax(1, Int.MAX_VALUE))
+        //binding.etAmount.filters = arrayOf(InputFilterMinMax(1, Int.MAX_VALUE))
+
+        binding.btnHistory.setOnClickListener {
+            if (currencyConversionViewModel.fromCurrencyPosition.value ?: 0 > 0 && currencyConversionViewModel.toCurrencyPosition.value ?: 0 > 0) {
+                val fromCurrency = currencyConversionViewModel.currencyFromList.value?.get(
+                    currencyConversionViewModel.fromCurrencyPosition.value ?: 0
+                )
+                val toCurrency = currencyConversionViewModel.currencyToList.value?.get(
+                    currencyConversionViewModel.toCurrencyPosition.value ?: 0
+                )
+
+                val action =
+                    CurrencyConversionFragmentDirections.actionCurrencyConversionFragmentToHistoryFragment(
+                        fromCurrency = fromCurrency ?: "",
+                        toCurrency = toCurrency ?: ""
+                    )
+                findNavController().navigate(action)
+            }
+        }
     }
     override fun onDestroyView() {
         super.onDestroyView()

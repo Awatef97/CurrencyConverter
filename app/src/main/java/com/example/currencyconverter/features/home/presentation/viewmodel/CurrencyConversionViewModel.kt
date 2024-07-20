@@ -17,27 +17,28 @@ class CurrencyConversionViewModel @Inject constructor(
     private val currencyUseCase: ConvertCurrencyUseCase
 ): ViewModel(){
 
-    val currencyList = MutableLiveData<List<String>>()
+    val currencyFromList = MutableLiveData<List<String>>()
+    val currencyToList = MutableLiveData<List<String>>()
     val fromCurrencyPosition = MutableLiveData<Int>()
     val toCurrencyPosition = MutableLiveData<Int>()
     val amount = MutableLiveData<String>()
     val convertedValue = MutableLiveData<String>()
-    private val conversionParam: CurrencyConversionParam =
-        CurrencyConversionParam(
-            from = currencyList.value?.get(fromCurrencyPosition.value ?: 0) ?: "USD",
-            to = currencyList.value?.get(toCurrencyPosition.value ?: 0) ?: "EUR",
-            amount = amount.value?.toLongOrNull() ?: 1
-        )
+
 
     init {
-        currencyList.value = getAllCurrencies()
+        currencyFromList.value = listOf("From") + getAllCurrencies()
+        currencyToList.value = listOf("To") + getAllCurrencies()
         fromCurrencyPosition.value = 0
-        toCurrencyPosition.value = 1
+        toCurrencyPosition.value = 0
         amount.value = "1"
         amount.observeForever { newAmount ->
             newAmount?.let {
                 convertCurrency(
-                    conversionParam = conversionParam.copy(amount = it.toLongOrNull() ?: 1)
+                    conversionParam =  CurrencyConversionParam(
+                        from = currencyFromList.value?.get(fromCurrencyPosition.value?:0 +1 ) ?: "USD",
+                        to = currencyToList.value?.get(toCurrencyPosition.value ?: 0 +1) ?: "EUR",
+                        amount = it.toLongOrNull() ?: 1
+                    )
                 )
             }
         }
@@ -46,27 +47,33 @@ class CurrencyConversionViewModel @Inject constructor(
         val fromPosition = fromCurrencyPosition.value ?: 0
         fromCurrencyPosition.value = toCurrencyPosition.value
         toCurrencyPosition.value = fromPosition
-        convertCurrency(conversionParam = conversionParam)
+        convertCurrency(conversionParam =  CurrencyConversionParam(
+            from = currencyFromList.value?.get(fromCurrencyPosition.value ?: 0 +1) ?: "USD",
+            to = currencyToList.value?.get(toCurrencyPosition.value ?: 0 +1) ?: "EUR",
+            amount = amount.value?.toLongOrNull() ?: 1
+        ))
     }
 
     private fun convertCurrency(conversionParam: CurrencyConversionParam) {
-        viewModelScope.launch {
-            currencyUseCase.invoke(conversionParam = conversionParam)
-                .collectLatest {
-                    when (it) {
-                        is Result.Error -> {
-                            convertedValue.value = it.error.handleErrors()
-                        }
-                        is Result.Success -> {
-                            if (it.date.success == true)
-                                convertedValue.value = it.date.result.toString()
-                            else {
-                                convertedValue.value = it.date.error?.info.toString()
+        if (conversionParam.amount.toString().matches(Regex("[0-9]*")) && fromCurrencyPosition.value != 0 && toCurrencyPosition.value != 0) {
+            viewModelScope.launch {
+                currencyUseCase.invoke(conversionParam = conversionParam)
+                    .collectLatest {
+                        when (it) {
+                            is Result.Error -> {
+                                convertedValue.value = it.error.handleErrors()
+                            }
+                            is Result.Success -> {
+                                if (it.date.success == true)
+                                    convertedValue.value = it.date.result.toString()
+                                else {
+                                    convertedValue.value = it.date.error?.info.toString()
 
+                                }
                             }
                         }
                     }
-                }
+            }
         }
     }
     private fun getAllCurrencies(): List<String> {

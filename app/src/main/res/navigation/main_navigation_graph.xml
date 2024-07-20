@@ -7,5 +7,22 @@
     <fragment
         android:id="@+id/currencyConversionFragment"
         android:name="com.example.currencyconverter.features.home.presentation.fragment.CurrencyConversionFragment"
-        android:label="CurrencyConversionFragment" />
+        android:label="CurrencyConversionFragment" >
+        <action
+            android:id="@+id/action_currencyConversionFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.currencyconverter.features.history.presentation.view.HistoryFragment"
+        android:label="HistoryFragment" >
+        <argument
+            android:name="fromCurrency"
+            app:argType="string"
+            />
+        <argument
+            android:name="toCurrency"
+            app:argType="string"
+            />
+    </fragment>
 </navigation>
