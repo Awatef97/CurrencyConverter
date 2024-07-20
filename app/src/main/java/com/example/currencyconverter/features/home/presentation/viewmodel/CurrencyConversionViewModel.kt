@@ -64,10 +64,10 @@ class CurrencyConversionViewModel @Inject constructor(
                                 convertedValue.value = it.error.handleErrors()
                             }
                             is Result.Success -> {
-                                if (it.date.success == true)
-                                    convertedValue.value = it.date.result.toString()
+                                if (it.data.success == true)
+                                    convertedValue.value = it.data.result.toString()
                                 else {
-                                    convertedValue.value = it.date.error?.info.toString()
+                                    convertedValue.value = it.data.error?.info.toString()
 
                                 }
                             }

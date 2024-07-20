@@ -33,8 +33,6 @@ class CurrencyConversionFragment: Fragment() {
         binding.viewModel = currencyConversionViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        //binding.etAmount.filters = arrayOf(InputFilterMinMax(1, Int.MAX_VALUE))
-
         binding.btnHistory.setOnClickListener {
             if (currencyConversionViewModel.fromCurrencyPosition.value ?: 0 > 0 && currencyConversionViewModel.toCurrencyPosition.value ?: 0 > 0) {
                 val fromCurrency = currencyConversionViewModel.currencyFromList.value?.get(

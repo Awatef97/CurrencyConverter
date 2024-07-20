@@ -11,26 +11,27 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_history"
-        android:layout_width="wrap_content"
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="20dp"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="@drawable/ic_history"/>
+        android:textColor="#000000"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Currency Conversion"/>
     <Spinner
         android:id="@+id/spinner_from_currency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/btn_history"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:entries="@{viewModel.currencyFromList}"
         app:selectedItemPosition="@{viewModel.fromCurrencyPosition}"
@@ -80,7 +81,21 @@
         android:layout_margin="20dp"
         app:layout_constraintTop_toBottomOf="@id/et_amount"
         android:text="@{viewModel.convertedValue}"
-        android:textColor="#000000"/>
-
+        android:textColor="#FFED0937"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="10dp"
+        android:drawableStart="@drawable/ic_history"
+        android:text="Open History"
+        android:background="@null"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

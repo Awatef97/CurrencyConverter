@@ -1,5 +1,7 @@
 package com.example.currencyconverter.features.home.data.mode
 
+import com.example.currencyconverter.core.data.ErrorResponse
+
 data class CurrencyConversionResponse(
     val success: Boolean? = null,
     val historical: String? = null,
@@ -18,8 +20,4 @@ data class QueryResponse(
 data class InfoResponse(
     val timestamp: Long? = null,
     val rate: Long? = null
-)
-data class ErrorResponse(
-    val code: Int? = null,
-    val info: String? = null
 )

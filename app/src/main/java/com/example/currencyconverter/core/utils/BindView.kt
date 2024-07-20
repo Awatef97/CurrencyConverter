@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -32,5 +33,12 @@ fun setOnItemSelectedListener(spinner: Spinner, liveData: MutableLiveData<Int>?)
         }
 
         override fun onNothingSelected(parent: AdapterView<*>?) {}
+    }
+}
+@BindingAdapter("app:errorMsg")
+fun setErrorMsg(view: TextView, errorMsg: String?) {
+    view.visibility = if (errorMsg.isNullOrEmpty()) View.GONE else {
+        view.text = errorMsg
+        View.VISIBLE
     }
 }
