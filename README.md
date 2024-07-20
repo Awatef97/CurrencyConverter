@@ -1,5 +1,5 @@
 # CurrencyConverter
-urrency App designed to help users manage multi-currency conversions.
+currency App designed to help users manage multi-currency conversions.
 
 Feat:-
 ---
